@@ -4,9 +4,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 public class CentralServicos {
-    private List<OrdemServico> listaOrdens = new ArrayList<>();
-    private List<Tecnico> listaTecnicos = new ArrayList<>();
-    private List<Cliente> listaClientes = new ArrayList<>();
+    private List<OrdemServico> listaOrdens;
+    private List<Tecnico> listaTecnicos;
+    private List<Cliente> listaClientes;
+
+    public CentralServicos(){
+        this.listaClientes = new ArrayList<>();
+        this.listaTecnicos = new ArrayList<>();
+        this.listaOrdens = new ArrayList<>();
+    }
 
     public Cliente registrarCliente(String nome, String telefone){
         Random rand = new Random();
@@ -17,7 +23,7 @@ public class CentralServicos {
         return cliente;
     }
 
-    public Tecnico registrarTecnico(String nome, String especialidade){
+    public final Tecnico registrarTecnico(String nome, String especialidade){
         Random rand = new Random();
 
         Tecnico tecnico = new Tecnico(rand.nextInt(899) + 100 ,nome, especialidade);
@@ -26,10 +32,11 @@ public class CentralServicos {
         return tecnico;
     }
 
-    public void criarOrdemServico(String nome_cliente, String telefone, String nome_tecnico, String especialidade, String descricao, String status){
+    public void criarOrdemServico(String descricao, String status, Cliente cliente, Tecnico tecnico){
         Random rand = new Random();
 
-        listaOrdens.add(new OrdemServico(rand.nextInt(89999) + 10000,registrarCliente(nome_cliente, telefone), registrarTecnico(nome_tecnico, especialidade), descricao, status));
+        OrdemServico os = new OrdemServico(rand.nextInt(89999) + 10000, cliente, tecnico, descricao, status);
+        listaOrdens.add(os);
     }
 
     public OrdemServico buscarOrdemServico(int id){
@@ -52,6 +59,10 @@ public class CentralServicos {
         }
 
         return aux;
+    }
+
+    public void AtualizarStatus(OrdemServico os, String status, String comentario){
+        os.registrarHistorico(status, comentario);
     }
 
     public List<OrdemServico> getListaOrdens() {
