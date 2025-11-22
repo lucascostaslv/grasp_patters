@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class OrdemServico {
     private int id;
@@ -8,7 +9,7 @@ public class OrdemServico {
     private Tecnico tecnico;
     private String descricao;
     private String status;
-    private List<Historico> historicos;
+    private List<Historico> historicos = new ArrayList<>();
 
     public OrdemServico(int id, Cliente cliente, Tecnico tecnico, String descricao, String status){
         this.id = id;
@@ -18,8 +19,8 @@ public class OrdemServico {
         this.status = status;
     }
 
-    protected void registarHistorico(String status, String comentario){
-        
+    protected void registrarHistorico(String status, String comentario){
+        this.historicos.add(new Historico(status, comentario));
     }
 
     public int getId() {
