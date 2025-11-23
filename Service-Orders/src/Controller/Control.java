@@ -9,7 +9,7 @@ import Model.Tecnico;
 
 public class Control implements ControllerInteface{
 
-    private final Scanner scan;
+    public final Scanner scan;
     private final CentralServicos central;
 
     public Control(){
